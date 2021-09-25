@@ -1,0 +1,24 @@
+# Visual Studio Code related
+.classpath
+.project
+.settings/
+.vscode/
+
+**/node_modules
+.env
+package-lock.json
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
+*.class
+*.lock
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
