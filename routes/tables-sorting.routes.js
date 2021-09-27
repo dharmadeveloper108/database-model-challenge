@@ -1,6 +1,9 @@
 module.exports = (app) => {
     const databaseSort = require('../controllers/tables-sorting.controller');
 
-    // GET sorted tables
-    app.get('/api/sortTables', databaseSort.sortTables);
+    // POST database json -> returns sorted tables
+    app.post('/sortTables', databaseSort.sortTables);
+
+    // GET sorted tables from database.json
+    app.get('/sortTablesFromFile', databaseSort.sortTablesFromFile);
 }

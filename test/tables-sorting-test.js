@@ -6,7 +6,7 @@ const server = require('../app');
 chai.should();
 chai.use(chaiHttp);
 
-describe('GET request to sort database tables', () => {
+describe('Test API endpoints to sort database tables', () => {
 
     /**
      * Read JSON files from data/ 
@@ -36,13 +36,50 @@ describe('GET request to sort database tables', () => {
     });
 
     /**
-     * Test the GET route with empty request body
+     * Test the GET route 
      */
 
-    describe('Empty request body', () => {
+    describe('GET /sortTablesFromFile', () => {
+        it('Should have a status 200', (done) => {
+
+            chai.request(server)
+                .get('/sortTablesFromFile')
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    done();
+                })
+        })
+
+        it('Should return an array', (done) => {
+
+            chai.request(server)
+                .get('/sortTablesFromFile')
+                .end((err, response) => {
+                    response.body.should.be.a('array');
+                    done();
+                })
+        })
+
+        it('Should return sorted table names', (done) => {
+
+            chai.request(server)
+                .get('/sortTablesFromFile')
+                .end((err, response) => {
+                    response.body.should.include(testDB1[0].name)
+                    console.log(`Sorted tables: ${response.body}`)
+                    done();
+                })
+        })
+    })
+
+    /**
+     * Test the POST route with empty request body
+     */
+
+    describe('POST /sortTables: Empty request body', () => {
         it('Should return error', (done) => {
             chai.request(server)
-                .get('/api/sortTables')
+                .post('/sortTables')
                 .end((err, response) => {
                     response.should.have.status(400);
                     response.body.should.be.eql({});
@@ -53,18 +90,38 @@ describe('GET request to sort database tables', () => {
     })
 
     /**
-     * Test the GET route with local json files as request body
+     * Test the POST route with local json files as request body
      */
 
-    describe('Database model from database.json', () => {
-        it('Should return array of sorted table names', (done) => {
+    describe('POST /sortTables with database.json as body', () => {
+        it('Should have a status 200', (done) => {
 
             chai.request(server)
-                .get('/api/sortTables')
+                .post('/sortTables')
                 .send(testDB1)
                 .end((err, response) => {
                     response.should.have.status(200);
+                    done();
+                })
+        })
+
+        it('Should return an array', (done) => {
+
+            chai.request(server)
+                .post('/sortTables')
+                .send(testDB1)
+                .end((err, response) => {
                     response.body.should.be.a('array');
+                    done();
+                })
+        })
+
+        it('Should return sorted table names', (done) => {
+
+            chai.request(server)
+                .post('/sortTables')
+                .send(testDB1)
+                .end((err, response) => {
                     response.body.should.include(testDB1[0].name)
                     console.log(`Sorted tables: ${response.body}`)
                     done();
@@ -72,16 +129,36 @@ describe('GET request to sort database tables', () => {
         })
     })
 
-    describe('Database model from database2.json', () => {
-        it('Should return array of sorted table names', (done) => {
+    describe('POST /sortTables with database2.json as body', () => {
+        it('Should have a status 200', (done) => {
 
             chai.request(server)
-                .get('/api/sortTables')
+                .post('/sortTables')
                 .send(testDB2)
                 .end((err, response) => {
                     response.should.have.status(200);
+                    done();
+                })
+        })
+
+        it('Should return an array', (done) => {
+
+            chai.request(server)
+                .post('/sortTables')
+                .send(testDB2)
+                .end((err, response) => {
                     response.body.should.be.a('array');
-                    response.body.should.include(testDB2[0].name)
+                    done();
+                })
+        })
+
+        it('Should return sorted table names', (done) => {
+
+            chai.request(server)
+                .post('/sortTables')
+                .send(testDB2)
+                .end((err, response) => {
+                    response.body.should.include(testDB1[0].name)
                     console.log(`Sorted tables: ${response.body}`)
                     done();
                 })

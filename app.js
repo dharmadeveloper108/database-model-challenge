@@ -1,14 +1,17 @@
-const fs = require('fs');
 const express = require('express');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const docs = require('./docs/basicInfo');
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 require('./routes/tables-sorting.routes')(app);
 
-app.listen(3000, '0.0.0.0', () => {
-    console.log('Server listening on port 3000');
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log('Swagger page: http://localhost:4000/api-docs/');
 });
 
-module.exports = app
+module.exports = app;

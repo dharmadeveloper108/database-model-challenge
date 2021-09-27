@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 exports.sortTables = (req, res) => {
 
     try {
@@ -9,6 +11,26 @@ exports.sortTables = (req, res) => {
         }
 
         res.status(200).send(sortTables(data));
+
+    } catch (e) {
+        res.status(400).send(`Error: ${e}`);
+        return;
+    }
+}
+
+exports.sortTablesFromFile = (req, res) => {
+    
+    try {
+        fs.readFile('././data/database.json', 'utf8', (err, jsonString) => {
+            if (err) {
+                res.status(400).send(`Error processing data: ${err}`);
+                return;
+            }
+
+            const sorted = sortTables(JSON.parse(jsonString));
+            res.status(200).send(sorted);
+
+        });
 
     } catch (e) {
         res.status(400).send(`Error: ${e}`);
