@@ -6,12 +6,14 @@ When I saw the description of this challenge, I thought I'd give it a go turning
 I also took it as an opportunity to learn to wirte unit tests with Mocha and Chai (the whole coffee shop situation), which I had never done before, so please excuse the unpolishedness (totally a legit word).
 The API is documented with Swagger, so it's easier to test it with different use cases (eg. different schemas that conform to the database.json structure).
 
+The logic of the sorting algorithm for the solution is in the function **sortTables** inside **tables-sorting.controller.js**.
+
 In summary, here is the "tech stack" I used:
 - Node JS (with JavaScript)
 - Mocha with Chai 
 - Swagger
 
-To run the solution (Swagger documentation at [localhost:4000/api-docs/](https://breakdance.github.io/breakdance/) ):
+To run the solution (Swagger documentation at [localhost:4000/api-docs/](http://localhost:4000/api-docs/) ):
 
 ```sh
 npm start
@@ -26,10 +28,10 @@ npm test
 ## Endpoints
 
 -  **/sortTablesFromFile** 
-GET sorted tables from database.json file
+GET names of sorted tables from database.json file
 
 - **/sortTables** 
-POST request with json body -> returns sorted tables
+POST request with JSON body -> returns sorted tables names
 
 ## Things I could have done better
 _(that I can think of off the top of my head)_
