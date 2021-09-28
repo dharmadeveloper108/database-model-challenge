@@ -158,7 +158,7 @@ describe('Test API endpoints to sort database tables', () => {
                 .post('/sortTables')
                 .send(testDB2)
                 .end((err, response) => {
-                    response.body.should.include(testDB1[0].name)
+                    response.body.should.include(testDB2[0].name)
                     console.log(`Sorted tables: ${response.body}`)
                     done();
                 })
